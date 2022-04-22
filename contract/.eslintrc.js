@@ -5,10 +5,7 @@ module.exports = {
     mocha: true,
     node: true,
   },
-  extends: [
-    "../.eslintrc.json",
-    "plugin:node/recommended"
-  ],
+  extends: ["../.eslintrc.json", "plugin:node/recommended"],
   parserOptions: {
     ecmaVersion: 12,
   },
