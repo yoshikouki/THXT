@@ -1,6 +1,7 @@
 {
   "name": "thxt",
   "scripts": {
+    "dev": "hardhat node",
     "fmt": "prettier . --ignore-path .gitignore --write",
     "lint": "eslint --ext .ts,.tsx . --ignore-path .gitignore",
     "test": "hardhat test"

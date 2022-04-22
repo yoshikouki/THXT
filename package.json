@@ -5,6 +5,9 @@
     "contract"
   ],
   "scripts": {
+    "dev": "run-p *:dev",
+    "app:dev": "wait-on http://localhost:8545/ && npm run -w app dev",
+    "contract:dev": "npm run -w contract dev",
     "fmt": "npm run --workspaces fmt",
     "lint": "npm run --workspaces lint",
     "app:lint": "npm run -w app lint",
