@@ -5,13 +5,10 @@ module.exports = {
     mocha: true,
     node: true,
   },
-  plugins: ["@typescript-eslint"],
   extends: [
-    "standard",
-    "plugin:prettier/recommended",
-    "plugin:node/recommended",
+    "../.eslintrc.json",
+    "plugin:node/recommended"
   ],
-  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 12,
   },

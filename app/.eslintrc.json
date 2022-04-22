@@ -1,3 +1,12 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "../.eslintrc.json",
+    "next",
+    "next/core-web-vitals"
+  ],
+  "settings": {
+    "next": {
+      "rootDir": "app/"
+    }
+  }
 }
