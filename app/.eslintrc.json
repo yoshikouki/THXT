@@ -1,4 +1,7 @@
 {
+  "rules": {
+    "tailwindcss/no-custom-classname": "off"
+  },
   "extends": [
     "../.eslintrc.json",
     "next",
