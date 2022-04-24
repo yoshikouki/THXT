@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import AccountStatus from "./AccountStatus";
 
 const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -15,6 +16,9 @@ const DefaultLayout = ({ children }: { children: React.ReactNode }) => {
               THXT
             </a>
           </Link>
+        </div>
+        <div className="flex-none">
+          <AccountStatus />
         </div>
       </div>
       <div className="container mx-auto">{children}</div>
