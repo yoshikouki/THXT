@@ -10,5 +10,8 @@ module.exports = {
       center: true,
     },
   },
+  daisyui: {
+    themes: ["halloween"],
+  },
   plugins: [require("daisyui")],
 };
