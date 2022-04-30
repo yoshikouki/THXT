@@ -17,7 +17,7 @@ const AccountStatus = () => {
       const instance = await web3Modal.connect();
       const provider = new ethers.providers.Web3Provider(instance);
       provider.on("disconnect", disconnectWallet);
-      const accounts = await provider.send("eth_accounts", []);
+      const accounts = await provider.listAccounts();
       setAccount(accounts[0]);
       const ensAddress = await provider.lookupAddress(accounts[0]);
       if (ensAddress) setAccount(ensAddress);
