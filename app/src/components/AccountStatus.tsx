@@ -19,6 +19,8 @@ const AccountStatus = () => {
       provider.on("disconnect", disconnectWallet);
       const accounts = await provider.send("eth_accounts", []);
       setAccount(accounts[0]);
+      const ensAddress = await provider.lookupAddress(accounts[0]);
+      if (ensAddress) setAccount(ensAddress);
     } catch (e) {
       console.error(e);
     } finally {
