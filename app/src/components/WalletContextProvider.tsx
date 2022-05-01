@@ -1,8 +1,8 @@
 import React, { createContext, ReactNode, useCallback, useState } from "react";
 import { useEffect } from "react";
-import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import { web3Modal } from "@/lib/web3-modal";
+import Web3Modal from "web3modal";
+import { providerOptions } from "@/lib/web3-modal";
 
 type WalletInterface = {
   account: string | null;
@@ -45,6 +45,7 @@ const WalletContextProvider = ({ children }: Props) => {
   const connectWallet = useCallback(async () => {
     try {
       setIsLoading(true);
+      const web3Modal = new Web3Modal(providerOptions);
       const providerInstance = await web3Modal.connect();
       const provider = new ethers.providers.Web3Provider(providerInstance);
       provider.on("disconnect", disconnectWallet);
@@ -62,6 +63,7 @@ const WalletContextProvider = ({ children }: Props) => {
   }, [disconnectWallet]);
 
   useEffect(() => {
+    const web3Modal = new Web3Modal(providerOptions);
     if (web3Modal.cachedProvider) connectWallet();
   }, [connectWallet]);
 
