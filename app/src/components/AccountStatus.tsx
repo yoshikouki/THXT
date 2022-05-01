@@ -5,6 +5,10 @@ import { ethers } from "ethers";
 const AccountStatus = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [account, setAccount] = useState<string | null>(null);
+  const setAccountOrEnsDomain = async (account: string, provider) => {
+    const ensAddress = await provider.lookupAddress(account);
+    ensAddress ? setAccount(ensAddress) : setAccount(account);
+  };
 
   const disconnectWallet = useCallback(() => {
     setAccount(null);
@@ -16,13 +20,14 @@ const AccountStatus = () => {
       const web3Modal = new Web3Modal({
         cacheProvider: true,
       });
-      const instance = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(instance);
+      const providerInstance = await web3Modal.connect();
+      const provider = new ethers.providers.Web3Provider(providerInstance);
       provider.on("disconnect", disconnectWallet);
+      provider.on("accountsChanged", async (accounts: string[]) => {
+        await setAccountOrEnsDomain(accounts[0], provider);
+      });
       const accounts = await provider.listAccounts();
-      setAccount(accounts[0]);
-      const ensAddress = await provider.lookupAddress(accounts[0]);
-      if (ensAddress) setAccount(ensAddress);
+      await setAccountOrEnsDomain(accounts[0], provider);
     } catch (e) {
       console.error(e);
     } finally {
