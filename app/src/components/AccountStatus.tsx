@@ -1,46 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
+import useWallet from "@/hooks/useWallet";
 
 const AccountStatus = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [account, setAccount] = useState<string | null>(null);
-  const setAccountOrEnsDomain = async (account: string, provider) => {
-    const ensAddress = await provider.lookupAddress(account);
-    ensAddress ? setAccount(ensAddress) : setAccount(account);
-  };
-
-  const disconnectWallet = useCallback(() => {
-    setAccount(null);
-  }, []);
-
-  const connectWallet = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const web3Modal = new Web3Modal({
-        cacheProvider: true,
-      });
-      const providerInstance = await web3Modal.connect();
-      const provider = new ethers.providers.Web3Provider(providerInstance);
-      provider.on("disconnect", disconnectWallet);
-      provider.on("accountsChanged", async (accounts: string[]) => {
-        await setAccountOrEnsDomain(accounts[0], provider);
-      });
-      const accounts = await provider.listAccounts();
-      await setAccountOrEnsDomain(accounts[0], provider);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setTimeout(() => setIsLoading(false), 300);
-    }
-  }, [disconnectWallet]);
-
-  useEffect(() => {
-    const web3Modal = new Web3Modal({
-      cacheProvider: true,
-    });
-    if (web3Modal.cachedProvider) connectWallet();
-  }, [connectWallet]);
+  const { isLoading, account, connectWallet, disconnectWallet } = useWallet();
 
   return isLoading ? (
     <button className="ml-auto btn btn-ghost loading"></button>
