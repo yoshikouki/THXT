@@ -1,13 +1,15 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 
 const AccountStatus = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [account, setAccount] = useState<string | null>(null);
+
   const disconnectWallet = useCallback(() => {
     setAccount(null);
   }, []);
+
   const connectWallet = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -27,6 +29,12 @@ const AccountStatus = () => {
       setTimeout(() => setIsLoading(false), 300);
     }
   }, []);
+  useEffect(() => {
+    const web3Modal = new Web3Modal({
+      cacheProvider: true,
+    });
+    if (web3Modal.cachedProvider) connectWallet();
+  }, [connectWallet]);
 
   return isLoading ? (
     <button className="btn btn-ghost loading"></button>
