@@ -28,7 +28,8 @@ const AccountStatus = () => {
     } finally {
       setTimeout(() => setIsLoading(false), 300);
     }
-  }, []);
+  }, [disconnectWallet]);
+
   useEffect(() => {
     const web3Modal = new Web3Modal({
       cacheProvider: true,
