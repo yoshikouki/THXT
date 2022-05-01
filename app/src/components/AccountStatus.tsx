@@ -38,12 +38,14 @@ const AccountStatus = () => {
   }, [connectWallet]);
 
   return isLoading ? (
-    <button className="btn btn-ghost loading"></button>
+    <button className="ml-auto btn btn-ghost loading"></button>
   ) : account ? (
-    <div className="dropdown dropdown-hover">
-      <label className="btn btn-ghost">{account}</label>
+    <div className="ml-auto w-1/2 dropdown dropdown-hover dropdown-end">
+      <label>
+        <div className="px-4 text-right truncate">{account}</div>
+      </label>
       <ul
-        className="p-4 shadow dropdown-content menu bg-base-100 rounded-box"
+        className="pt-4 shadow dropdown-content menu bg-base-100 rounded-box"
         tabIndex={0}
       >
         <li>
@@ -54,7 +56,10 @@ const AccountStatus = () => {
       </ul>
     </div>
   ) : (
-    <button className="btn btn-ghost" onClick={() => void connectWallet()}>
+    <button
+      className="ml-auto btn btn-ghost"
+      onClick={() => void connectWallet()}
+    >
       Connect Wallet
     </button>
   );
